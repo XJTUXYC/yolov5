@@ -1,0 +1,21 @@
+# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: data/robot  # dataset root dir
+train: train.txt  # train images (relative to 'path')
+val: val.txt  # val images (relative to 'path')
+
+nc: 9
+
+# Classes
+names:
+  0: car
+  1: red_1
+  2: red_2
+  3: blue_1
+  4: blue_2
+  5: red_lamp
+  6: blue_lamp
+  7: x_1
+  8: x_2
+
