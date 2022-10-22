@@ -14,7 +14,8 @@ Models:     https://github.com/ultralytics/yolov5/tree/master/models
 Datasets:   https://github.com/ultralytics/yolov5/tree/master/data
 Tutorial:   https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data
 """
-
+import matplotlib
+import matplotlib.pyplot as plt
 import argparse
 import math
 import os
@@ -24,7 +25,6 @@ import time
 from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
-
 import numpy as np
 import torch
 import torch.distributed as dist
@@ -301,6 +301,14 @@ def train(hyp, opt, device, callbacks):  # hyp is path/to/hyp.yaml or hyp dictio
                 if sf != 1:
                     ns = [math.ceil(x * sf / gs) * gs for x in imgs.shape[2:]]  # new shape (stretched to gs-multiple)
                     imgs = nn.functional.interpolate(imgs, size=ns, mode='bilinear', align_corners=False)
+
+            img_show = imgs[0, 0:3, :, :]
+            img_show = img_show.cpu()
+            img_show = img_show.numpy()
+            img_show = img_show.transpose([1, 2, 0])
+            matplotlib.use('TKAgg')
+            plt.imshow(img_show)
+            plt.show()
 
             # Forward
             with torch.cuda.amp.autocast(amp):
